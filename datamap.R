@@ -164,3 +164,53 @@ df |>
   ggplot(aes(x = 분석분야, y = 분석대상)) +
   geom_text(aes(label = n)) + 
   facet_wrap(~기관명)
+
+
+## 
+df |> 
+  group_by(기관명, 분석분야, 설문대상) |>
+  count() |>
+  ungroup()|>
+  ggplot(aes(x = 분석분야, y = 설문대상)) +
+  geom_text(aes(label = n)) + 
+  facet_wrap(~기관명)
+
+
+## 
+df |> 
+  group_by(기관명, 조사방법, 설문대상) |>
+  count() |>
+  ungroup()|>
+  ggplot(aes(x = 조사방법, y = 설문대상)) +
+  geom_text(aes(label = n)) + 
+  facet_wrap(~기관명)
+
+
+## 
+df |> 
+  group_by(기관명, 조사방법, 설문규모) |>
+  count() |>
+  ungroup()|>
+  ggplot(aes(x = 조사방법, y = 설문규모)) +
+  geom_text(aes(label = n)) + 
+  facet_wrap(~기관명)
+
+
+## 
+df |> 
+  group_by(기관명, 설문대상, 설문규모) |>
+  count() |>
+  ungroup()|>
+  ggplot(aes(x = 설문대상, y = 설문규모)) +
+  geom_text(aes(label = n)) + 
+  facet_wrap(~기관명)
+
+
+## 
+df |> 
+  group_by(기관명, 분석분야, 설문규모) |>
+  count() |>
+  ungroup()|>
+  ggplot(aes(x = 분석분야, y = 설문규모)) +
+  geom_text(aes(label = n)) + 
+  facet_wrap(~기관명)
