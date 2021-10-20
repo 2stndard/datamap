@@ -1,6 +1,6 @@
 library(readxl)
 library(tidyverse)
-install.packages('clipr')
+## install.packages('clipr')
 library(clipr)
 
 df <- read_excel('D:/Work/2021/데이터맵/연구데이터 조사표(최종).xlsx', skip = 2, na = '-', sheet = '통합', col_types = c(rep('text',26)), col_names = F)
@@ -53,7 +53,7 @@ df |>
 
 ## 조사 분야별 조사수
 df |> 
-  group_by(기관명, 분석분야) |>
+  group_by(세부영역, 분석분야) |>
   count() |>
   ungroup()|>
   spread(분석분야, n) |>
@@ -214,3 +214,5 @@ df |>
   ggplot(aes(x = 분석분야, y = 설문규모)) +
   geom_text(aes(label = n)) + 
   facet_wrap(~기관명)
+
+
