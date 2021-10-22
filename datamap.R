@@ -238,3 +238,29 @@ df |>
   scale_x_discrete(labels = c("교육\n전반","유아\n분야","초중등\n교육", '고등\n교육', '평생\n교육', '기타'))
 
 ggsave("plot7.png", width = 13.5, height = 17.5, units = "cm")
+
+
+## 
+df |> 
+  group_by(설문대상, 분석분야, 조사방법) |>
+  count() |>
+  ungroup()|>
+  ggplot(aes(x = 분석분야, y = 조사방법)) +
+  geom_text(aes(label = n)) + 
+  facet_wrap(~설문대상, ncol = 2) + 
+  scale_x_discrete(labels = c("교육\n전반","유아\n분야","초중등\n교육", '고등\n교육', '평생\n교육', '기타'))
+
+ggsave("plot8.png", width = 13.5, height = 17.5, units = "cm")
+
+
+## 
+df |> 
+  group_by(설문대상, 조사방법, 설문규모) |>
+  count() |>
+  ungroup()|>
+  ggplot(aes(x = 조사방법, y = 설문규모)) +
+  geom_text(aes(label = n)) + 
+  facet_wrap(~설문대상, ncol = 2) + 
+  scale_x_discrete(labels = c("만족도조사","면담\nFGI","설문조사", '패널조사', '협의및토론\n델파이'))
+
+ggsave("plot9.png", width = 13.5, height = 17.5, units = "cm")
