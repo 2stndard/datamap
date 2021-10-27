@@ -7,6 +7,9 @@ library(ggthemes)
 
 df_수탁 <- read_excel('D:/Work/2021/데이터맵/수탁데이터 조사표(최종).xlsx', skip = 2, na = '-', sheet = '조사표(작성양식)',  col_names = F)
 
+df_수탁 <- read_excel('./수탁데이터 조사표(최종).xlsx', skip = 2, na = '-', sheet = '조사표(작성양식)',  col_names = F)
+
+
 View(df_수탁)
 
 colnames(df_수탁) <- c('연번', '기관명', '시스템명', '데이터명', '관리부서', '데이터목적', '데이터설명', '세부영역', '주업무목적', '주업무목적_기타', '대상학교급', '대상학교급_기타', '데이터저장단위', '데이터저장단위_기타', '공개범위', '공개범위_기타', '데이터입력범위', '데이터입력범위_기타', '데이터갱신주기', '데이터갱신주기_기타', '시작년도', '시작년도_기타', '데이터구축방법', '데이터구축방법_기타', '데이터형태', '데이터형태_기타', '데이터저장방법', '데이터저장방법_기타', '공개대상', '공개대상_기타', '고유식별정보보유', '고유식별정보보유_기타', '문의처')
@@ -51,6 +54,19 @@ df_수탁 |>
   spread(주업무목적, n) |>
   write_clip()
 
+df_수탁 |> 
+  group_by(세부영역, 주업무목적) |>
+  count() |>
+  ggplot(aes(x = 세부영역, y = n, fill = 주업무목적)) +
+  geom_col() +
+  theme(axis.text.x = element_text(angle = -90, hjust = 0), 
+        legend.position = 'bottom') + 
+  labs(y = '사례수')
+
+ggsave("수탁plot1.png", width = 13.5, height = 17.5, units = "cm")
+
+
+
 ## 조사 분야별 조사수
 df_수탁 |> 
   group_by(세부영역, 대상학교급) |>
@@ -58,6 +74,18 @@ df_수탁 |>
   ungroup()|>
   spread(대상학교급, n) |>
   write_clip()
+
+df_수탁 |> 
+  group_by(세부영역, 대상학교급) |>
+  count() |>
+  ggplot(aes(x = 세부영역, y = n, fill = 대상학교급)) +
+  geom_col() +
+  theme(axis.text.x = element_text(angle = -90, hjust = 0), 
+        legend.position = 'bottom') + 
+  labs(y = '사례수')
+
+ggsave("수탁plot2.png", width = 13.5, height = 17.5, units = "cm")
+
 
 ## 조사 분야별 조사수
 df_수탁 |> 
@@ -67,6 +95,19 @@ df_수탁 |>
   spread(데이터저장단위, n) |>
   write_clip()
 
+df_수탁 |> 
+  group_by(세부영역, 데이터저장단위) |>
+  count() |>
+  ggplot(aes(x = 세부영역, y = n, fill = 데이터저장단위)) +
+  geom_col() +
+  theme(axis.text.x = element_text(angle = -90, hjust = 0), 
+        legend.position = 'bottom') + 
+  labs(y = '사례수')
+
+ggsave("수탁plot3.png", width = 13.5, height = 17.5, units = "cm")
+
+
+
 ## 조사 분야별 조사수
 df_수탁 |> 
   group_by(세부영역, 공개범위) |>
@@ -75,6 +116,16 @@ df_수탁 |>
   spread(공개범위, n) |>
   write_clip()
 
+df_수탁 |> 
+  group_by(세부영역, 공개범위) |>
+  count() |>
+  ggplot(aes(x = 세부영역, y = n, fill = 공개범위)) +
+  geom_col() +
+  theme(axis.text.x = element_text(angle = -90, hjust = 0), 
+        legend.position = 'bottom') + 
+  labs(y = '사례수')
+
+ggsave("수탁plot4.png", width = 13.5, height = 17.5, units = "cm")
 
 
 ## 조사 분야별 조사수
@@ -85,6 +136,18 @@ df_수탁 |>
   spread(데이터입력범위, n) |>
   write_clip()
 
+df_수탁 |> 
+  group_by(세부영역, 데이터입력범위) |>
+  count() |>
+  ggplot(aes(x = 세부영역, y = n, fill = 데이터입력범위)) +
+  geom_col() +
+  theme(axis.text.x = element_text(angle = -90, hjust = 0), 
+        legend.position = 'bottom') + 
+  labs(y = '사례수')
+
+ggsave("수탁plot5.png", width = 13.5, height = 17.5, units = "cm")
+
+
 
 ## 조사 분야별 조사수
 df_수탁 |> 
@@ -94,6 +157,16 @@ df_수탁 |>
   spread(데이터갱신주기, n) |>
   write_clip()
 
+df_수탁 |> 
+  group_by(세부영역, 데이터갱신주기) |>
+  count() |>
+  ggplot(aes(x = 세부영역, y = n, fill = 데이터갱신주기)) +
+  geom_col() +
+  theme(axis.text.x = element_text(angle = -90, hjust = 0), 
+        legend.position = 'bottom') + 
+  labs(y = '사례수')
+
+ggsave("수탁plot6.png", width = 13.5, height = 17.5, units = "cm")
 
 ## 조사 분야별 조사수
 df_수탁 |> 
@@ -103,6 +176,16 @@ df_수탁 |>
   spread(데이터구축방법, n) |>
   write_clip()
 
+df_수탁 |> 
+  group_by(세부영역, 데이터구축방법) |>
+  count() |>
+  ggplot(aes(x = 세부영역, y = n, fill = 데이터구축방법)) +
+  geom_col() +
+  theme(axis.text.x = element_text(angle = -90, hjust = 0), 
+        legend.position = 'bottom') + 
+  labs(y = '사례수')
+
+ggsave("수탁plot7.png", width = 13.5, height = 17.5, units = "cm")
 
 ## 조사 분야별 조사수
 df_수탁 |> 
@@ -112,6 +195,16 @@ df_수탁 |>
   spread(데이터형태, n) |>
   write_clip()
 
+df_수탁 |> 
+  group_by(세부영역, 데이터형태) |>
+  count() |>
+  ggplot(aes(x = 세부영역, y = n, fill = 데이터형태)) +
+  geom_col() +
+  theme(axis.text.x = element_text(angle = -90, hjust = 0), 
+        legend.position = 'bottom') + 
+  labs(y = '사례수')
+
+ggsave("수탁plot8.png", width = 13.5, height = 17.5, units = "cm")
 
 ## 조사 분야별 조사수
 df_수탁 |> 
@@ -121,6 +214,16 @@ df_수탁 |>
   spread(데이터저장방법, n) |>
   write_clip()
 
+df_수탁 |> 
+  group_by(세부영역, 데이터저장방법) |>
+  count() |>
+  ggplot(aes(x = 세부영역, y = n, fill = 데이터저장방법)) +
+  geom_col() +
+  theme(axis.text.x = element_text(angle = -90, hjust = 0), 
+        legend.position = 'bottom') + 
+  labs(y = '사례수')
+
+ggsave("수탁plot9.png", width = 13.5, height = 17.5, units = "cm")
 
 distinct(df_수탁, 공개대상)
 
@@ -142,6 +245,18 @@ df_수탁 |>
   spread(공개대상, n) |>
   write_clip()
 
+df_수탁 |> 
+  group_by(세부영역, 공개대상) |>
+  count() |>
+  ggplot(aes(x = 세부영역, y = n, fill = 공개대상)) +
+  geom_col() +
+  theme(axis.text.x = element_text(angle = -90, hjust = 0), 
+        legend.position = 'bottom') + 
+  labs(y = '사례수')
+
+ggsave("수탁plot10.png", width = 13.5, height = 17.5, units = "cm")
+
+
 
 df_수탁 |> 
   group_by(세부영역, 고유식별정보보유) |>
@@ -149,6 +264,24 @@ df_수탁 |>
   ungroup()|>
   spread(고유식별정보보유, n) |>
   write_clip()
+
+df_수탁 |> 
+  group_by(세부영역, 고유식별정보보유) |>
+  count() |>
+  ggplot(aes(x = 세부영역, y = n, fill = 고유식별정보보유)) +
+  geom_col() +
+  theme(axis.text.x = element_text(angle = -90, hjust = 0), 
+        legend.position = 'bottom') + 
+  labs(y = '사례수')
+
+ggsave("수탁plot11.png", width = 13.5, height = 17.5, units = "cm")
+
+
+
+
+
+
+
 
 
 df_수탁 |> 
