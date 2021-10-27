@@ -2,9 +2,10 @@ library(readxl)
 library(tidyverse)
 ## install.packages('clipr')
 library(clipr)
+install.packages('ggthemes')
+library(ggthemes)
 
-
-df_수탁 <- read_excel('./수탁데이터 조사표(최종).xlsx', skip = 2, na = '-', sheet = '조사표(작성양식)',  col_names = F)
+df_수탁 <- read_excel('D:/Work/2021/데이터맵/수탁데이터 조사표(최종).xlsx', skip = 2, na = '-', sheet = '조사표(작성양식)',  col_names = F)
 
 View(df_수탁)
 
@@ -24,8 +25,21 @@ df_수탁$세부영역 <- fct_relevel(df_수탁$세부영역, '기관영역(학�
 
 ## 기관별 데이터명
 df_수탁 |> 
+  group_by(기관명, 시스템명) |>
+  ungroup() |>
+  distinct(기관명, 시스템명) |>
+  write_clip()
+
+df_수탁 |> 
+  group_by(기관명, 시스템명, 데이터명) |>
+  ungroup() |>
+  count(기관명, 시스템명, 데이터명) |>
+  write_clip()
+
+
+df_수탁 |> 
   group_by(기관명) |>
-  count(기관명, 데이터명) |>
+  count(기관명, 시스템명) |>
   write_clip()
 
 
@@ -142,9 +156,10 @@ df_수탁 |>
   count() |>
   ungroup()|>
   ggplot(aes(x = 대상학교급, y = 주업무목적)) +
-  geom_text(aes(label = n)) + 
+  geom_text(aes(label = n), size = 2.5) + 
   facet_wrap(~세부영역, ncol = 2) +
-  theme(axis.text.x = element_text(angle = -90, hjust = 0))
+  theme(axis.text.x = element_text(angle = 0)) + 
+  theme_minimal()
 
 ggsave("수탁_plot1.png", width = 13.5, height = 17.5, units = "cm")
 
@@ -162,6 +177,7 @@ df_수탁 |>
   ggplot(aes(x = 데이터저장단위, y = 주업무목적)) +
   geom_text(aes(label = n)) + 
   facet_wrap(~세부영역, ncol = 2) + 
-  scale_x_discrete(labels = c("개별단위","집계통계단위","기타"))
+  scale_x_discrete(labels = c("개별단위","집계통계단위","기타")) + 
+  theme_minimal()
 
 ggsave("수탁_plot2.png", width = 13.5, height = 17.5, units = "cm")
