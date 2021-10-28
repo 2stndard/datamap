@@ -278,39 +278,109 @@ ggsave("수탁plot11.png", width = 13.5, height = 17.5, units = "cm")
 
 
 
-
-
-
-
-
+#################################
 
 df_수탁 |> 
   group_by(대상학교급, 세부영역, 주업무목적) |>
   count() |>
-  ungroup()|>
+  group_by(세부영역) |>
+  mutate(nn = sum(n)) |> 
   ggplot(aes(x = 대상학교급, y = 주업무목적)) +
-  geom_text(aes(label = n), size = 2.5) + 
+  geom_rect(aes(xmin=-Inf,xmax=Inf,ymin=-Inf,ymax=Inf, fill = nn)) +
+  geom_text(aes(label = n), size = 3, color = 'white') + 
   facet_wrap(~세부영역, ncol = 2) +
-  theme(axis.text.x = element_text(angle = 0)) + 
-  theme_minimal()
+  theme(axis.text.x = element_text(angle = 0),
+        panel.grid.major = element_line(size = 0.5, linetype = 'solid',
+                                        colour = "black")) +
+  labs(fill = '전체사례수')  +
+  scale_x_discrete(labels = c("교육\n전반", "유초중등\n교육", "고등\n교육", '평생\n교육', '기타'))
+
+
+
 
 ggsave("수탁_plot1.png", width = 13.5, height = 17.5, units = "cm")
 
 
-distinct(df_수탁, 데이터저장단위)
 
+
+#####################################
+
+distinct(df_수탁, 데이터저장단위)
 
 df_수탁$데이터저장단위 <- fct_relevel(df_수탁$데이터저장단위, '개별 단위(학교별, 교원별, 학생별 등)', '집계 통계 단위(학교수, 학생수 등)', '기타')
 
-
 df_수탁 |> 
-  group_by(데이터저장단위, 세부영역, 주업무목적) |>
+  group_by(대상학교급, 세부영역, 데이터저장단위) |>
   count() |>
-  ungroup()|>
-  ggplot(aes(x = 데이터저장단위, y = 주업무목적)) +
-  geom_text(aes(label = n)) + 
-  facet_wrap(~세부영역, ncol = 2) + 
-  scale_x_discrete(labels = c("개별단위","집계통계단위","기타")) + 
-  theme_minimal()
+  group_by(세부영역) |>
+  mutate(nn = sum(n)) |> 
+  ggplot(aes(x = 대상학교급, y = 데이터저장단위)) +
+  geom_rect(aes(xmin=-Inf,xmax=Inf,ymin=-Inf,ymax=Inf, fill = nn)) +
+  geom_text(aes(label = n), size = 3, color = 'white') + 
+  facet_wrap(~세부영역, ncol = 2) +
+  theme(axis.text.x = element_text(angle = 0),
+        panel.grid.major = element_line(size = 0.5, linetype = 'solid',
+                                        colour = "black")) +
+  labs(fill = '전체사례수') + 
+  scale_y_discrete(labels = c("기타", "집계 통계 단위", "개별 단위"), 
+                   limits=rev) +
+  scale_x_discrete(labels = c("교육\n전반", "유초중등\n교육", "고등\n교육", '평생\n교육', '기타'))
+
 
 ggsave("수탁_plot2.png", width = 13.5, height = 17.5, units = "cm")
+
+
+
+#####################################
+
+distinct(df_수탁, 공개범위)
+
+df_수탁$공개범위 <- fct_relevel(df_수탁$공개범위, '전체공개', '일부공개', '가공(가명화, 통계처리 등) 후 공개', '공개불가', '기타')
+
+
+df_수탁 |> 
+  group_by(대상학교급, 세부영역, 공개범위) |>
+  count() |>
+  group_by(세부영역) |>
+  mutate(nn = sum(n)) |> 
+  ggplot(aes(x = 대상학교급, y = 공개범위)) +
+  geom_rect(aes(xmin=-Inf,xmax=Inf,ymin=-Inf,ymax=Inf, fill = nn)) +
+  geom_text(aes(label = n), size = 3, color = 'white') + 
+  facet_wrap(~세부영역, ncol = 2) +
+  theme(axis.text.x = element_text(angle = 0),
+        panel.grid.major = element_line(size = 0.5, linetype = 'solid',
+                                        colour = "black")) +
+  labs(fill = '전체사례수') +
+  scale_x_discrete(labels = c("교육\n전반", "유초중등\n교육", "고등\n교육", '평생\n교육', '기타')) + 
+    scale_y_discrete(limits=rev)
+
+
+ggsave("수탁_plot3.png", width = 13.5, height = 17.5, units = "cm")
+
+
+#####################################
+
+
+distinct(df_수탁, 데이터저장단위)
+distinct(df_수탁, 데이터갱신주기)
+
+df_수탁$데이터갱신주기 <- fct_relevel(df_수탁$데이터갱신주기, '매년', '매학기', '매분기', '매월', '매주', '매일', '비정기', '기타')
+
+
+df_수탁 |> 
+  group_by(데이터저장단위, 세부영역, 공개범위) |>
+  count() |>
+  group_by(세부영역) |>
+  mutate(nn = sum(n)) |> 
+  ggplot(aes(x = 공개범위, y = 데이터저장단위)) +
+  geom_rect(aes(xmin=-Inf,xmax=Inf,ymin=-Inf,ymax=Inf, fill = nn)) +
+  geom_text(aes(label = n), size = 3, color = 'white') + 
+  facet_wrap(~세부영역, ncol = 2) +
+  theme(axis.text.x = element_text(angle = 0),
+        panel.grid.major = element_line(size = 0.5, linetype = 'solid',
+                                        colour = "black")) +
+  labs(fill = '전체사례수') + 
+  scale_x_discrete(labels = c("전체\n공개", "일부\n공개", "가공후\n공개", '공개\n불가', '기타')) + 
+  scale_y_discrete(limits=rev)
+
+ggsave("수탁_plot4.png", width = 13.5, height = 17.5, units = "cm")
