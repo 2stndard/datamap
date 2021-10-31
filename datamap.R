@@ -32,6 +32,10 @@ df$설문규모 <- fct_relevel(df$설문규모, '~19', '20~99', '100~499', '500~
 
 df$설문대상 <- fct_relevel(df$설문대상, '대국민', '정부부처, 교육청', '연구자 및 전문가', '학교행정가(교장, 교감, 보직교원 등)', '교원', '학생', '학부모', '전문가, 행정가 및 교원', '기타')
 
+df |> 
+  distinct(기관명, 과제명, 연구책임자, 조사명) |>
+  write_clip()
+
 ##  기관별 과제명
 df |> 
   group_by(기관명) |>
@@ -162,6 +166,10 @@ df |>
   facet_wrap(~기관명, ncol = 1) +
   scale_y_discrete(labels = c("만족도조사","면담 및 FGI","설문조사", '패널조사', '협의및토론\n델파이')) +
   labs(fill = '전체사례수')
+
+
++
+  ggplotly()
 
 
 ggsave("plot1.png", width = 13.5, height = 17.5, units = "cm")
@@ -337,7 +345,7 @@ df |>
   group_by(설문대상) |>
   mutate(nn = sum(n)) |>   
   ggplot(aes(x = 조사방법, y = 설문규모)) +
-  geom_rect(aes(xmin=-Inf,xmax=Inf,ymin=-Inf,ymax=Inf, fill = nn)) +
+  geom_rect(aes(xmin=-Inf,xmax=Inf,ymin=-Inf,ymax=Inf, fill = nn), alpha = 0.2) +
   geom_text(aes(label = n), size = 3, color = 'white') + 
   facet_wrap(~설문대상, ncol = 2) +
   labs(fill = '전체사례수') +
@@ -416,7 +424,7 @@ ggsave("연구plot4.png", width = 13.5, height = 10, units = "cm")
 
 ##################################
 
-df |> 
+ggplotly(df |> 
   group_by(기관명, 설문규모) |>
   count() |>
   ggplot(aes(x = 기관명, y = n, fill = 설문규모)) +
@@ -424,7 +432,15 @@ df |>
   theme(axis.text.x = element_text(angle = -0, hjust = 0.5), 
         legend.position = 'bottom') + 
   labs(y = '사례수') + 
-  guides(fill = guide_legend(nrow = 1))
+  guides(fill = guide_legend(nrow = 1)))
+
+
+|>
+  ggplotly()
 
 ggsave("연구plot5.png", width = 13.5, height = 10, units = "cm")
 
+#######################
+
+
+names(df)
