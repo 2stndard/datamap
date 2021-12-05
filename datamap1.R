@@ -102,6 +102,7 @@ df_수탁 |>
   geom_col() +
   theme(axis.text.x = element_text(angle = -90, hjust = 0), 
         legend.position = 'bottom') + 
+  guides(fill = guide_legend(nrow = 2, byrow = TRUE)) +
   labs(y = '사례수')
 
 ggsave("수탁plot3.png", width = 13.5, height = 17.5, units = "cm")
@@ -123,6 +124,7 @@ df_수탁 |>
   geom_col() +
   theme(axis.text.x = element_text(angle = -90, hjust = 0), 
         legend.position = 'bottom') + 
+  guides(fill = guide_legend(nrow = 2, byrow = TRUE)) +
   labs(y = '사례수')
 
 ggsave("수탁plot4.png", width = 13.5, height = 17.5, units = "cm")
@@ -221,6 +223,7 @@ df_수탁 |>
   geom_col() +
   theme(axis.text.x = element_text(angle = -90, hjust = 0), 
         legend.position = 'bottom') + 
+  guides(fill = guide_legend(nrow = 3, byrow = TRUE)) +
   labs(y = '사례수')
 
 ggsave("수탁plot9.png", width = 13.5, height = 17.5, units = "cm")
@@ -252,7 +255,8 @@ df_수탁 |>
   geom_col() +
   theme(axis.text.x = element_text(angle = -90, hjust = 0), 
         legend.position = 'bottom') + 
-  labs(y = '사례수')
+  guides(fill = guide_legend(nrow = 3, byrow = TRUE)) +
+  labs(y = '사례수') 
 
 ggsave("수탁plot10.png", width = 13.5, height = 17.5, units = "cm")
 

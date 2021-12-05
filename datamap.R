@@ -112,6 +112,10 @@ df |>
   write_clip()
 
 
+
+
+
+
 ## 조사 대상별 조사회수
 df |> 
   group_by(기관명, 조사회수) |>
@@ -144,8 +148,7 @@ df |>
   group_by(기관명, 다년조사) |>
   count() |>
   ungroup()|>
-  spread(다년조사, n) |>
-  write_clip()
+  spread(다년조사, n)
 
 
 
