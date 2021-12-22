@@ -25,6 +25,14 @@ df_수탁$대상학교급 <- fct_relevel(df_수탁$대상학교급, '교육전�
 
 df_수탁$세부영역 <- fct_relevel(df_수탁$세부영역, '기관영역(학교)', '교원(강사)정보영역', '학급(학과)정보영역', '학생정보영역', '학부모정보영역', '교육과정(강좌)운영영역', '학업성취영역', '시설기자재영역', '예결산영역', '교육지원영역', '학생역량영역', '교원역량영역', '기타')
 
+df_수탁$공개대상 <- ifelse(stringr::str_detect(df_수탁$공개대상, '3단계'), '3단계(1, 2 단계 및 대국민)', df_수탁$공개대상)  
+
+df_수탁$데이터저장단위 <- fct_relevel(df_수탁$데이터저장단위, '개별 단위(학교별, 교원별, 학생별 등)', '집계 통계 단위(학교수, 학생수 등)', '기타')
+
+df_수탁$데이터갱신주기 <- fct_relevel(df_수탁$데이터갱신주기, '매년', '매학기', '매분기', '매월', '매주', '매일', '비정기', '기타')
+
+df_수탁$공개범위 <- fct_relevel(df_수탁$공개범위, '전체공개', '일부공개', '가공(가명화, 통계처리 등) 후 공개', '공개불가', '기타')
+
 
 ## 기관별 데이터명
 df_수탁 |> 
@@ -63,7 +71,7 @@ df_수탁 |>
         legend.position = 'bottom') + 
   labs(y = '사례수')
 
-ggsave("수탁plot1.png", width = 13.5, height = 17.5, units = "cm")
+ggsave("4-18.pdf", width = 13.5, height = 17.5, units = "cm")
 
 
 
@@ -84,7 +92,7 @@ df_수탁 |>
         legend.position = 'bottom') + 
   labs(y = '사례수')
 
-ggsave("수탁plot2.png", width = 13.5, height = 17.5, units = "cm")
+ggsave("4-19.pdf", width = 13.5, height = 17.5, units = "cm")
 
 
 ## 조사 분야별 조사수
@@ -105,7 +113,7 @@ df_수탁 |>
   guides(fill = guide_legend(nrow = 2, byrow = TRUE)) +
   labs(y = '사례수')
 
-ggsave("수탁plot3.png", width = 13.5, height = 17.5, units = "cm")
+ggsave("4-20.pdf", width = 13.5, height = 17.5, units = "cm")
 
 
 
@@ -127,7 +135,7 @@ df_수탁 |>
   guides(fill = guide_legend(nrow = 2, byrow = TRUE)) +
   labs(y = '사례수')
 
-ggsave("수탁plot4.png", width = 13.5, height = 17.5, units = "cm")
+ggsave("4-21.pdf", width = 13.5, height = 17.5, units = "cm")
 
 
 ## 조사 분야별 조사수
@@ -147,7 +155,7 @@ df_수탁 |>
         legend.position = 'bottom') + 
   labs(y = '사례수')
 
-ggsave("수탁plot5.png", width = 13.5, height = 17.5, units = "cm")
+ggsave("4-21.pdf", width = 13.5, height = 17.5, units = "cm")
 
 
 
@@ -168,7 +176,7 @@ df_수탁 |>
         legend.position = 'bottom') + 
   labs(y = '사례수')
 
-ggsave("수탁plot6.png", width = 13.5, height = 17.5, units = "cm")
+ggsave("4-22.pdf", width = 13.5, height = 17.5, units = "cm")
 
 ## 조사 분야별 조사수
 df_수탁 |> 
@@ -187,7 +195,7 @@ df_수탁 |>
         legend.position = 'bottom') + 
   labs(y = '사례수')
 
-ggsave("수탁plot7.png", width = 13.5, height = 17.5, units = "cm")
+ggsave("4-23.pdf", width = 13.5, height = 17.5, units = "cm")
 
 ## 조사 분야별 조사수
 df_수탁 |> 
@@ -206,7 +214,7 @@ df_수탁 |>
         legend.position = 'bottom') + 
   labs(y = '사례수')
 
-ggsave("수탁plot8.png", width = 13.5, height = 17.5, units = "cm")
+ggsave("4-24.pdf", width = 13.5, height = 17.5, units = "cm")
 
 ## 조사 분야별 조사수
 df_수탁 |> 
@@ -226,7 +234,7 @@ df_수탁 |>
   guides(fill = guide_legend(nrow = 3, byrow = TRUE)) +
   labs(y = '사례수')
 
-ggsave("수탁plot9.png", width = 13.5, height = 17.5, units = "cm")
+ggsave("4-25.pdf", width = 13.5, height = 17.5, units = "cm")
 
 distinct(df_수탁, 공개대상)
 
@@ -236,7 +244,6 @@ df_수탁 |>
   View()
 
 
-df_수탁$공개대상 <- ifelse(stringr::str_detect(df_수탁$공개대상, '3단계'), '3단계(1, 2 단계 및 대국민)', df_수탁$공개대상)  
 
 
 
@@ -258,7 +265,7 @@ df_수탁 |>
   guides(fill = guide_legend(nrow = 3, byrow = TRUE)) +
   labs(y = '사례수') 
 
-ggsave("수탁plot10.png", width = 13.5, height = 17.5, units = "cm")
+ggsave("4-26.pdf", width = 13.5, height = 17.5, units = "cm")
 
 
 
@@ -278,7 +285,7 @@ df_수탁 |>
         legend.position = 'bottom') + 
   labs(y = '사례수')
 
-ggsave("수탁plot11.png", width = 13.5, height = 17.5, units = "cm")
+ggsave("4-27.pdf", width = 13.5, height = 17.5, units = "cm")
 
 
 
@@ -302,7 +309,7 @@ df_수탁 |>
 
 
 
-ggsave("수탁_plot1.png", width = 13.5, height = 17.5, units = "cm")
+ggsave("4-28.pdf", width = 13.5, height = 17.5, units = "cm")
 
 
 
@@ -311,7 +318,6 @@ ggsave("수탁_plot1.png", width = 13.5, height = 17.5, units = "cm")
 
 distinct(df_수탁, 데이터저장단위)
 
-df_수탁$데이터저장단위 <- fct_relevel(df_수탁$데이터저장단위, '개별 단위(학교별, 교원별, 학생별 등)', '집계 통계 단위(학교수, 학생수 등)', '기타')
 
 df_수탁 |> 
   group_by(대상학교급, 세부영역, 데이터저장단위) |>
@@ -331,7 +337,7 @@ df_수탁 |>
   scale_x_discrete(labels = c("교육\n전반", "유초중등\n교육", "고등\n교육", '평생\n교육', '기타'))
 
 
-ggsave("수탁_plot2.png", width = 13.5, height = 17.5, units = "cm")
+ggsave("4-29.pdf", width = 13.5, height = 17.5, units = "cm")
 
 
 
@@ -339,7 +345,6 @@ ggsave("수탁_plot2.png", width = 13.5, height = 17.5, units = "cm")
 
 distinct(df_수탁, 공개범위)
 
-df_수탁$공개범위 <- fct_relevel(df_수탁$공개범위, '전체공개', '일부공개', '가공(가명화, 통계처리 등) 후 공개', '공개불가', '기타')
 
 
 df_수탁 |> 
@@ -359,7 +364,7 @@ df_수탁 |>
     scale_y_discrete(limits=rev)
 
 
-ggsave("수탁_plot3.png", width = 13.5, height = 17.5, units = "cm")
+ggsave("4-30.pdf", width = 13.5, height = 17.5, units = "cm")
 
 
 #####################################
@@ -368,7 +373,6 @@ ggsave("수탁_plot3.png", width = 13.5, height = 17.5, units = "cm")
 distinct(df_수탁, 데이터저장단위)
 distinct(df_수탁, 데이터갱신주기)
 
-df_수탁$데이터갱신주기 <- fct_relevel(df_수탁$데이터갱신주기, '매년', '매학기', '매분기', '매월', '매주', '매일', '비정기', '기타')
 
 
 df_수탁 |> 
@@ -387,4 +391,4 @@ df_수탁 |>
   scale_x_discrete(labels = c("전체\n공개", "일부\n공개", "가공후\n공개", '공개\n불가', '기타')) + 
   scale_y_discrete(limits=rev)
 
-ggsave("수탁_plot4.png", width = 13.5, height = 17.5, units = "cm")
+ggsave("4-31.pdf", width = 13.5, height = 17.5, units = "cm")
